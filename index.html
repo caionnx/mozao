@@ -1,0 +1,69 @@
+<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+<style>
+body, html{
+margin:0; padding:0;
+}
+div{
+position:absolute;
+display:none;
+left:50%;
+width:800px;
+height:1150px;
+margin-left:-400px;
+}
+.animateHeart{
+width:300px;
+display:none;
+height:300px;
+position:absolute;
+left:50%;
+margin-left:-150px;
+z-index:900;
+opacity:0;
+}
+</style>
+<img src="animateHeart.svg" class="animateHeart">
+<div style="background:blue" class="toShow" id="1">
+</div>
+<div style="background:orange" class="toShow" id="2">
+</div>
+
+<script>
+$(function(){
+rn = 1 + Math.floor(Math.random() * 2);
+$('#'+ rn +'.toShow').fadeIn();
+
+function shows( element ){
+rn = 1 + Math.floor(Math.random() * 2);
+if(rn == element.attr('id')){
+shows( element );
+}
+else{
+element.fadeOut();
+$('#'+ rn +'.toShow').fadeIn(400, function(){
+	$( ".animateHeart" ).show().animate({
+	opacity: 1,
+	width: 400,
+	height: 400,
+	marginLeft: "-200px"
+	}, 300, function() {
+		$( ".animateHeart" ).animate({
+		opacity: 0,
+		width: 300,
+		height: 300,
+		marginLeft: "-150px"
+		}, 300, function(){
+			$(this).hide();
+		});
+	});
+});
+}
+}
+$('div').on("click", function(){
+shows( $(this) );
+ })
+
+
+})
+ 
+</script>

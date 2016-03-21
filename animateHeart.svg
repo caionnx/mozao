@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+     height="100%" width="100%" viewBox="0 0 225 180" preserveAspectRatio="xMinYMin meet">
+<g>
+    <title>Animated SVG - Beating heart</title>
+    <desc>
+      Animated SVG - Beating heart. 
+    </desc>
+</g>
+<!-- xxx -->
+<!-- Copyright by Frido Verweij. Licence: Creative Commons Attribution-ShareAlike 4.0 International (http://creativecommons.org/licenses/by-sa/4.0/) -->
+
+<defs>  
+  <radialGradient id="grad1" cx="30%" cy="30%" r="30%" fx="20%" fy="20%">
+       <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1" />
+       <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+  </radialGradient>
+</defs>
+
+<style type="text/css" id="style_css_sheet">
+<![CDATA[
+
+.heart {
+fill:red;
+fill:url(#grad1);
+}
+
+#bg {
+fill:none;
+stroke:none;
+}
+
+]]>
+</style>
+
+<rect width="225"  height="180" id="bg" />
+<g id="animate" transform="translate(110,90)scale(1)">
+<path
+       d="m -37.319448,-74.491834 c -14.471656,0 -27.561323,5.893365 -36.978363,15.335145 -9.417044,9.441675 -15.202219,22.445716 -15.202219,36.796386 0,7.175336 2.459674,18.6449884 6.575347,25.2983194 0,0 12.51529,22.8937116 43.784463,45.6453516 29.5545355,21.50422 36.6048655,25.93288 39.02260451,25.92485 2.38638899,-0.01 10.34829449,-4.36089 39.90282449,-25.86501 31.26917,-22.75164 43.02986,-45.5131176 43.02986,-45.5131176 4.22528,-6.787873 6.68496,-18.2575254 6.68496,-25.4328614 0,-14.35067 -5.78518,-27.354711 -15.20221,-36.796386 -9.41705,-9.44178 -22.50671,-15.335145 -36.97837,-15.335145 -14.47166,0 -30.8391725,15.291569 -37.3194444905963,15.30633 C -6.4313705,-59.112912 -22.847793,-74.491834 -37.319448,-74.491834 z"
+       class="heart"
+	   />
+ <!-- Path in Inkscape needs to be drawn symmetric around upper left corner of drawing field -->  
+</g>
+	
+<script type="application/ecmascript"> <![CDATA[
+
+	/* ******************************************* */   
+
+	var s = 1.05; //  expansion scale (>1)
+	
+	/* ******************************************* */	
+
+	var i = 0;
+	var n = 1;
+	var p = 0;
+
+    onload = function animate() {
+		var obj = document.getElementById("animate");		
+			if (p % 2 == 0) {
+				n = n+(0.0001*i);
+				obj.transform.baseVal.getItem(1).setScale(n,n);   // <g transform="translate(20,10)scale(1)"> -> getItem(0) = translate, getItem(1) = scale
+				if (n<s) {
+				i++;
+				} else {
+					p++;
+					i = 0;
+				}
+			} else {
+				n = n-(0.001*i);
+				obj.transform.baseVal.getItem(1).setScale(n,n); 
+				if (n>1) {
+				i++;
+				} else {
+					p++;
+					i = 0;
+				}			
+			}
+		window.requestAnimationFrame(animate);
+    }	
+
+/* ***** Polyfill for cross-browser support for requestAnimationFrame(): https://gist.github.com/paulirish/1579671 ***** */	
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+ 
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+ 
+// MIT license
+ 
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
+                                   || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+ 
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); }, 
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+ 
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());	
+	
+]]> </script>
+	
+</svg>
