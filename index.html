@@ -1,88 +1,26 @@
+<!DOCTYPE HTML>
+<html>
 <head>
-<meta name="viewport" content="width=device-width,  initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width,  initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mozão</title>
+	<link rel="stylesheet" href="source/style.min.css">
+	<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+	<script src="source/script.min.js"></script>
 </head>
-<script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
-<style>
-body, html{
-	margin:0; padding:0;
-}
-.toShow{
-	position:absolute;
-	display:none;
-	width:100%;
-	height:100%;
-}
-.animateHeart{
-	width:150px;
-	display:none;
-	height:150px;
-	position:absolute;
-	left:50%;
-	top:50%;
-	margin-top:-75px;
-	margin-left:-75px;
-	z-index:900;
-	opacity:0;
-}
-.animateHeart,
-.toShow{
--webkit-backface-visibility:hidden;
--webkit-transform:translateZ(0);
-}
-</style>
+ 
+<body>
+<div class="container">
 <audio loop id="playsong">
-  <source src="XO.mp3" type="audio/mpeg">
+  <source src="audio/XO.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
 
-<img src="animateHeart3.svg" class="animateHeart">
-<img src="mozao1.jpg" class="toShow" id="1">
-<img src="mozao2.jpg" class="toShow" id="2">
-<img src="mozao3.jpg" class="toShow" id="3">
-
-<script>
-$(function(){
-var vid = document.getElementById("playsong"); 
-$('body').on("click", function(){
-vid.play();
-})
-
-rn = 1 + Math.floor(Math.random() * 2);
-$('#'+ rn +'.toShow').fadeIn();
-
-function shows( element ){
-	rn = 1 + Math.floor(Math.random() * 3);
-	if(rn == element.attr('id')){
-		shows( element );
-	}
-	else{
-		element.fadeOut();
-		$('#'+ rn +'.toShow').fadeIn(400, function(){
-			$( ".animateHeart" ).stop().show().animate({
-				opacity: 1,
-				width: 300,
-				height: 300,
-				marginLeft: "-150px",
-				marginTop: "-150px"
-			}, 300, function() {
-				$( ".animateHeart" ).animate({
-					opacity: 0,
-					width: 150,
-					height: 150,
-					marginLeft: "-75px",
-					marginTop: "-75px"
-					}, 300, function(){
-						$(this).hide();
-					});
-				});
-			});
-	}
-}
-$('.toShow').on("click", function(){
-shows( $(this) );
- })
-
-
-})
+<img src="img/animateHeart3.svg" class="animateHeart">
+<img src="img/mozao1.jpg" class="toShow" id="1">
+<img src="img/mozao2.jpg" class="toShow" id="2">
+<img src="img/mozao3.jpg" class="toShow" id="3">
+</div>
+</body>
  
-</script>
+</html>
